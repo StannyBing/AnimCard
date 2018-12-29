@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="gold">#FFD700</color>
+    <color name="defaultColor1">#FF7F50</color>
+    <color name="defaultColor2">#99cc33</color>
+    <color name="defaultColor3">#4682B4</color>
+    <color name="defaultColor4">#ff8e9c</color>
+    <color name="defaultColor5">#008080</color>
+</resources>
