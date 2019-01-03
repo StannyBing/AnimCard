@@ -1,4 +1,4 @@
-# AnimCard<br>
+AnimCard<br>
 动画展示卡片<br>
 <div align=center><img width="324" height="576" src="https://github.com/StannyBing/AnimCard/blob/master/demo.gif"/><br>
 使用方式：<br>
