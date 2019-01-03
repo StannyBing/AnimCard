@@ -2,12 +2,12 @@
 动画展示卡片<br>
 <div align=center><img width="324" height="576" src="https://github.com/StannyBing/AnimCard/blob/master/demo.gif"/><br>
 使用方式：<br>
- 引用依赖<br>
+ ###引用依赖<br>
  ```
     compile 'com.github.StannyBing:AnimCard:1.0.1'
  ```
  <br>
- 添加控件<br>
+ ###添加控件<br>
  ```
  <com.stanny.animcardview.AnimCardView
          android:id="@+id/anim_card_view"
@@ -16,7 +16,7 @@
          android:layout_height="match_parent"/>
  ```
  <br>
- 控件初始化<br>
+ ###控件初始化<br>
  ```
  animCardView = findViewById(R.id.anim_card_view);
          AnimCardBuilder animCardBuilder = new AnimCardBuilder();
@@ -47,7 +47,7 @@
          });
  ```
  <br>
- 所有的参数设置都是通过AnimCardBuider进行初始化<br>
+ ###所有的参数设置都是通过AnimCardBuider进行初始化<br>
  AnimCardBuider包含了以下参数设置：<br>
  ```
  setDeformSize//设置item的倾斜长度
@@ -63,7 +63,7 @@
  setDefaultSelectItem//设置默认选中的item
  ```
  <br>
- AnimCardView包含了以下方法<br>
+ ###AnimCardView包含了以下方法<br>
  ```
  buildView//构建view
  setAutoSelectable//设置自动切换
