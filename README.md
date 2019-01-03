@@ -1,12 +1,12 @@
-# AnimCard
-动画展示卡片
-<div align=center><img width="324" height="576" src="https://github.com/StannyBing/AnimCard/blob/master/demo.gif"/>
-使用方式：
- 引用依赖
+# AnimCard<br>
+动画展示卡片<br>
+<div align=center><img width="324" height="576" src="https://github.com/StannyBing/AnimCard/blob/master/demo.gif"/><br>
+使用方式：<br>
+ 引用依赖<br>
  ```
     compile 'com.github.StannyBing:AnimCard:1.0.1'
  ```
- 添加控件
+ 添加控件<br>
  ```
  <com.stanny.animcardview.AnimCardView
          android:id="@+id/anim_card_view"
@@ -14,7 +14,7 @@
          android:layout_width="match_parent"
          android:layout_height="match_parent"/>
  ```
- 控件初始化
+ 控件初始化<br>
  ```
  animCardView = findViewById(R.id.anim_card_view);
          AnimCardBuilder animCardBuilder = new AnimCardBuilder();
@@ -44,8 +44,8 @@
              }
          });
  ```
- 所有的参数设置都是通过AnimCardBuider进行初始化
- AnimCardBuider包含了以下参数设置：
+ 所有的参数设置都是通过AnimCardBuider进行初始化<br>
+ AnimCardBuider包含了以下参数设置：<br>
  ```
  setDeformSize//设置item的倾斜长度
  setViewMargin//设置view的margin
@@ -59,7 +59,7 @@
  setAnimResouce//设置资源，最低为5条，不够将由代码补足五条
  setDefaultSelectItem//设置默认选中的item
  ```
- AnimCardView包含了以下方法
+ AnimCardView包含了以下方法<br>
  ```
  buildView//构建view
  setAutoSelectable//设置自动切换
@@ -68,5 +68,5 @@
 
  ```
 
- 注意事项：
- 传入资源时，需要注意，传入的图片资源需要为背景透明的png图片，图片内容与图片大小的比例不能差距太大，图片资源尽量为正方形
+ 注意事项：<br>
+ 传入资源时，需要注意，传入的图片资源需要为背景透明的png图片，图片内容与图片大小的比例不能差距太大，图片资源尽量为正方形<br>
