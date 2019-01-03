@@ -28,11 +28,13 @@ public class MainActivity extends AppCompatActivity {
         animCardBeans.add(new AnimCardBean(R.color.defaultColor3, R.drawable.op3));
         animCardBeans.add(new AnimCardBean(R.color.defaultColor4, R.drawable.op4));
         animCardBeans.add(new AnimCardBean(R.color.defaultColor5, R.drawable.op5));
-        animCardBuilder.setAnimResouce(animCardBeans);
+        animCardBuilder.setAnimResouce(animCardBeans)
+                .setAutoSelectPeriod(1500);
         animCardView.buildView(animCardBuilder);
+        animCardView.setAutoSelectable(true);
         animCardView.setAnimActionListener(new AnimActionListener() {
             @Override
-            public void onItemSelect(int position) {
+            public void onItemSelect(int position,  boolean isAutoSelect) {
 
             }
 
@@ -47,4 +49,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }

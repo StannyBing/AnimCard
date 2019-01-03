@@ -2,12 +2,16 @@ package com.stanny.animcardview;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Xiangb on 2018/12/21.
@@ -24,7 +28,9 @@ public class AnimCardView extends FrameLayout {
     private float itemIndex;//item间隔
     private boolean isAnimAction = false;//是否正在运行动画
     private AnimActionListener actionListener;
+    private Timer timer;//自动切换
 
+    private boolean autoSelectable = true;//是否自动切换
     private AnimCardBuilder animCardBuilder;
 
     public AnimCardView(Context context) {
@@ -49,11 +55,18 @@ public class AnimCardView extends FrameLayout {
         viewMargin = animCardBuilder.getViewMargin();
         itemIndex = animCardBuilder.getItemIndex();
 
+        timer = new Timer();
+
         setWillNotDraw(false);
 
     }
 
-    public void buildView(AnimCardBuilder animCardBuilder) {
+    /**
+     * 构建view
+     *
+     * @param animCardBuilder
+     */
+    public void buildView(final AnimCardBuilder animCardBuilder) {
         this.animCardBuilder = animCardBuilder;
         deformSize = animCardBuilder.getDeformSize();
         viewMargin = animCardBuilder.getViewMargin();
@@ -66,7 +79,40 @@ public class AnimCardView extends FrameLayout {
             animCardBuilder.setDefaultSelectItem(0);
         }
         invalidate();
+        runAutoSelect();
     }
+
+    /**
+     * 开始自动切换
+     */
+    private void runAutoSelect() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                autoSelectHandler.sendEmptyMessage(0);
+            }
+        }, animCardBuilder.getAutoSelectPeriod() + animCardBuilder.getAnimDuring(), animCardBuilder.getAutoSelectPeriod() + animCardBuilder.getAnimDuring());
+    }
+
+    /**
+     * 设置自动切换，默认为true
+     *
+     * @param autoSelectable
+     */
+    public void setAutoSelectable(boolean autoSelectable) {
+        this.autoSelectable = autoSelectable;
+    }
+
+    private Handler autoSelectHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (autoSelectable) {
+                selectItem(animCardBuilder.getNowSelectPosition() == (animCardBuilder.getAnimResouce().size() - 1) ? 0 : (animCardBuilder.getNowSelectPosition() + 1));
+            }
+        }
+    };
 
     /**
      * 手动选中指定item
@@ -74,7 +120,7 @@ public class AnimCardView extends FrameLayout {
      * @param position
      */
     public void selectItem(int position) {
-        if (position < childViews.size() && position > 0) {
+        if (position < childViews.size() && position >= 0) {
             childViews.get(position).selectItem();
         }
     }
@@ -104,7 +150,7 @@ public class AnimCardView extends FrameLayout {
 
     private AnimActionListener innerActionListener = new AnimActionListener() {
         @Override
-        public void onItemSelect(final int position) {
+        public void onItemSelect(final int position, boolean isAutoSelet) {
             isAnimAction = true;
             childViews.get(animCardBuilder.getLastSelectPosition()).deSelectItem();//关闭之前的选中
             for (AnimCardItemView childView : childViews) {
@@ -125,7 +171,17 @@ public class AnimCardView extends FrameLayout {
                 }
             }, animCardBuilder.getAnimDuring() + 100);
             if (actionListener != null) {
-                actionListener.onItemSelect(position);
+                actionListener.onItemSelect(position, isAutoSelet);
+            }
+            //如果不是自动选中，且此时开启了自动切换，那么当手动选中之后，暂停几秒后再执行自动选中
+            if (!isAutoSelet && autoSelectable) {
+                timer.cancel();
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        runAutoSelect();
+                    }
+                }, animCardBuilder.getAutoSelectPeriod());
             }
         }
 

@@ -6,7 +6,7 @@ package com.stanny.animcardview;
  */
 public interface AnimActionListener {
 
-    void onItemSelect(int position);
+    void onItemSelect(int position, boolean isAutoSelect);
 
     void onItemDeselect(int position);
 

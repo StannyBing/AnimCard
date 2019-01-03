@@ -46,6 +46,8 @@ public class AnimCardItemView extends View implements View.OnTouchListener {
     private int animDuring;//动画周期
     private int bgColor;//背景颜色
 
+    private boolean isAutoSelect = true;//是否自动选择
+
     private Bitmap bitmap;
     private float bitmapX;
     private float bitmapY;
@@ -412,7 +414,8 @@ public class AnimCardItemView extends View implements View.OnTouchListener {
         if (pointInPath(bgPath, event.getX(), event.getY())) {
             //animCardBuilder.getLastSelectPosition() == animCardBuilder.getNowSelectPosition()表示动画已完成
             if (!isSelect && animCardBuilder.getLastSelectPosition() == animCardBuilder.getNowSelectPosition()) {
-                selectItem();
+                isAutoSelect = false;
+                selectItem(animDuring);
             } else if (position == animCardBuilder.getLastSelectPosition() && animCardBuilder.getLastSelectPosition() == animCardBuilder.getNowSelectPosition()) {
                 //已被选中，执行点击事件
                 actionListener.onItemClick(position);
@@ -426,9 +429,9 @@ public class AnimCardItemView extends View implements View.OnTouchListener {
     /**
      * 执行选中
      */
-    public void selectItem(int animDuring) {
+    private void selectItem(int animDuring) {
         //未被选中，执行选中动画
-        actionListener.onItemSelect(position);
+        actionListener.onItemSelect(position, isAutoSelect);
         isSelect = true;
         ObjectAnimator animator = ObjectAnimator.ofFloat(this, "animOpenProgress", 0.0f, 1.0f);
         animator.setDuration(animDuring);
@@ -440,6 +443,7 @@ public class AnimCardItemView extends View implements View.OnTouchListener {
      * 执行选中
      */
     public void selectItem() {
+        isAutoSelect = true;
         selectItem(animDuring);
     }
 
