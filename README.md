@@ -48,3 +48,28 @@ compile 'com.github.StannyBing:AnimCard:1.0.1'
          });
 
 ```
+
+ <br>
+# 所有的参数设置都是通过AnimCardBuider进行初始化<br>
+ AnimCardBuider包含了以下参数设置：<br>
+ setDeformSize//设置item的倾斜长度
+ setViewMargin//设置view的margin
+ setItemHeight//设置item的高度
+ setItemIndex//设置item之间的间隔
+ setAnimDuring//设置动画的时长
+ setAutoSelectPeriod//设置自动切换周期
+ setStrokeColor//设置边框颜色
+ setStrokeWidth//设置边框宽度
+ setBitmapAnimRange//设置图片的动画幅度，1f~1.6f
+ setAnimResouce//设置资源，最低为5条，不够将由代码补足五条
+ setDefaultSelectItem//设置默认选中的item
+
+ <br>
+ ###AnimCardView包含了以下方法<br>
+ buildView//构建view
+ setAutoSelectable//设置自动切换
+ selectItem//选中item
+ setAnimActionListener//设置监听
+
+# 注意事项：<br>
+ 传入资源时，需要注意，传入的图片资源需要为背景透明的png图片，图片内容与图片大小的比例不能差距太大，图片资源尽量为正方形<br>
